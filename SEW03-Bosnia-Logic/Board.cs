@@ -10,25 +10,16 @@ namespace SWE03_Bosnia_Logic
 {
     public class Board // Eine Klasse Für das Brett  
     {
-        private readonly Tile[,] pieces = new Tile[8, 8]; // Ersteltt ein 8x8 undefiniertes Spielstück was dass Brett sein soll
+        private int _row;
+        private int _collum;
+        private int _bombcount;
 
-        public Tile this[int row, int col] // Piece wird durch einen Indexer wie ein Array behandelt und kann damit seine Position in der Row und im Collum asl Eigenschaft haben 
-        {
-            get { return pieces[row, col]; }
-            set { pieces[row, col] = value; }
-        }
-
-        public Tile this[Position pos]//Piece wird durch einen Indexer wie ein Array behandelt und kann damit seine Position wiedergeben 
-        {
-            get { return this[pos.Row, pos.Column]; }
-            set { this[pos.Row, pos.Column] = value; }
-        }
+       
 
          public static Board Initial() // Generiert das Board am Anfang des Spieles
         {
-            Board board = new Board();
-            board.AddStartPieces();
-            return board;
+            
+            
         }
 
         private void AddMines()

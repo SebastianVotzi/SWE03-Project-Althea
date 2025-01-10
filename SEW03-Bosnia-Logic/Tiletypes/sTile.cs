@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SEW03_Bosnia_Logic
 {
-    public class Tile
+    public class sTile
     {
         public Tiletypes Type => Tiletypes.sTile;
     }
