@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SEW03_Bosnia_Logic
 {
-    public class Mine
+    public class Mine:Tile
     {
         public Tiletypes Type => Tiletypes.Mine;
         

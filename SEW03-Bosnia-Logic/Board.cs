@@ -8,60 +8,86 @@ using System.Threading.Tasks;
 
 namespace SWE03_Bosnia_Logic
 {
-    public class Board // Eine Klasse Für das Brett  
+    public class Board // Eine Klasse Für das Spielbrett  
     {
         private int _row;
         private int _collum;
         private int _bombcount;
 
-       
+        private bool _clicked= false;
 
-         public static Board Initial() // Generiert das Board am Anfang des Spieles
-        {
-            
-            
+        private int[,,] gameBoard = new int [0,0,0];
+        public Board(int row, int collum, int bombcount) 
+        { 
+            this._row = row;
+            this._collum = collum;
+            this._bombcount = bombcount;
         }
 
-        private void AddMines()
+         public void InitializeBoard() // Generiert das Board am Anfang des Spieles
         {
-
-        }
-        
-        public static bool IsInside(Position pos) // Schaut ob eine Figur auf der Position von einer anderen ist 
-        {
-            return pos.Row >= 0 && pos.Row < 8 && pos.Column >= 0 && pos.Column < 8;
-        }
-
-        public bool IsEmpty(Position pos)// Schaut ob ein Spielfeld leer ist 
-        {
-            return this[pos] == null;
-        }
-
-        public IEnumerable<Position> PiecePositions()//Gibt die Positionen aller Figuren zurück
-        {
-            for(int i = 0;i < 8; i++)
+            for (int i = 0; i < _row; i++)
             {
-                for (int j = 0;j < 8; j++)
+                for(int j =0; j < _collum; j++)
                 {
-                    Position pos = new Position(i, j);
-
-                    if (!IsEmpty(pos))
-                    {
-                        yield return pos;
-                    }
+                    gameBoard[i, j, 0] = 0;
                 }
+            }
+            
+        }
+
+        private void AddMines(int startx, int starty)//Generiert die Minen 
+        { 
+
+            int placedBombs = 0;
+            Random randomGenerator = new Random();
+
+            while (placedBombs < _bombcount)
+            {
+
+                int x = randomGenerator.Next(0, _row);
+                int y = randomGenerator.Next(0, _collum);
+
+                if (gameBoard[x, y, 0] == 0 && x != startx && y != starty)
+                {
+
+                    gameBoard[x, y, 0] = 1;// 1==Mine, 0 == Normales Feld
+                    placedBombs++;
+
+                }
+
+
             }
         }
 
-        public IEnumerable<Position> PiecePositionsFor()//Gibt die Position aller Figuren eines Spielers zurück
+
+        public bool Clicked(int x, int y)
         {
-            return PiecePositions();
+            if (_clicked == false)// Wenn es der erste Click ist werden die Minen generiert 
+            {
+                AddMines(x, y);
+                _clicked = true;
+            }
+
+            if (gameBoard[x, y, 0] == 1)
+            {
+                return false;// Ist eine Mine
+            }
+            else if(gameBoard[x, y, 0] == 0)
+            {
+               
+                return true;// Ist keine Mine
+            }
+            return true;// Standart case wird nicht eintreten
         }
 
-       
 
-        
 
-        
+
+
+
+
+
+
     }
 }

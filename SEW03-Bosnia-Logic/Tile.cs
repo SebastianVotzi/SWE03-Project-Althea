@@ -6,8 +6,9 @@ using System.Threading.Tasks;
 
 namespace SEW03_Bosnia_Logic
 {
-    public class STile:Tile
+    public class Tile
     {
-        public Tiletypes Type => Tiletypes.sTile;
+        private bool _clicked = false;
+        public Tile() { }
     }
 }

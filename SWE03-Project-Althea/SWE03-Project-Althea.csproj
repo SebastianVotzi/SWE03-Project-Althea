@@ -66,4 +66,16 @@
 	  <ProjectReference Include="..\SEW03-Bosnia-Logic\SEW03-Bosnia-Logic.csproj" />
 	</ItemGroup>
 
+	<ItemGroup>
+	  <Compile Update="Gamepage.xaml.cs">
+	    <DependentUpon>Gamepage.xaml</DependentUpon>
+	  </Compile>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <MauiXaml Update="Gamepage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	</ItemGroup>
+
 </Project>
