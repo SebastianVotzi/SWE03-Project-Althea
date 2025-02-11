@@ -73,6 +73,9 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <MauiXaml Update="Gameovermenu.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="Gamepage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>

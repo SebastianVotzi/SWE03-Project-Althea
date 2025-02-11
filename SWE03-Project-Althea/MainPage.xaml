@@ -3,15 +3,30 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="SWE03_Project_Althea.MainPage">
 
-    <ScrollView>
-        <VerticalStackLayout
-            <Button
-                x:Name="StartBtn"
-                Text="Start" 
-                SemanticProperties.Hint="Counts the number of times you click"
+    <Grid>
+        <!-- Define a single row and column -->
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+
+        <Image Source="xijinping.jpg"
+       Grid.Row="0"
+       Grid.Column="0" />
+        
+        <!-- Place the button in the center -->
+        <Button Text="Start Game"
                 Clicked="StartBtn_Clicked"
-                HorizontalOptions="Fill" />
-        </VerticalStackLayout>
-    </ScrollView>
+                HorizontalOptions="Center"
+                VerticalOptions="Center"
+                Grid.Row="0"
+                BackgroundColor="Gray"
+                Grid.Column="0" />
+        
+        
+    </Grid>
+
 
 </ContentPage>

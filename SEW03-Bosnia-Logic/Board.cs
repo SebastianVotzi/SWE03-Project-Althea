@@ -1,6 +1,7 @@
 ﻿using SEW03_Bosnia_Logic;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
@@ -11,32 +12,39 @@ namespace SWE03_Bosnia_Logic
     public class Board // Eine Klasse Für das Spielbrett  
     {
         private int _row;
+        public int Row { get => _row; }
         private int _collum;
+        public int Collum { get => _collum; }
         private int _bombcount;
+        public int Bombcount { get=> _bombcount;}
 
         private bool _clicked= false;
 
-        private int[,,] gameBoard = new int [0,0,0];
-        public Board(int row, int collum, int bombcount) 
+        private int[,,] _gameBoard;
+        public int[,,] GameBoard { get => _gameBoard;  }
+        public Board(int row, int collum, int bombcount, int[,,] gameboard) 
         { 
             this._row = row;
             this._collum = collum;
             this._bombcount = bombcount;
+            this._gameBoard = gameboard;
+
         }
 
-         public void InitializeBoard() // Generiert das Board am Anfang des Spieles
+        public void InitializeBoard() // Generiert das Board am Anfang des Spieles
         {
             for (int i = 0; i < _row; i++)
             {
-                for(int j =0; j < _collum; j++)
+                for (int j = 0; j < _collum; j++)
                 {
-                    gameBoard[i, j, 0] = 0;
+                    _gameBoard[i, j, 0] = 0;
                 }
             }
             
+
         }
 
-        private void AddMines(int startx, int starty)//Generiert die Minen 
+        public void AddMines(int startx, int starty)//Generiert die Minen 
         { 
 
             int placedBombs = 0;
@@ -48,13 +56,14 @@ namespace SWE03_Bosnia_Logic
                 int x = randomGenerator.Next(0, _row);
                 int y = randomGenerator.Next(0, _collum);
 
-                if (gameBoard[x, y, 0] == 0 && x != startx && y != starty)
+                if (_gameBoard[x, y, 0] == 0 && x != startx && y != starty)
                 {
 
-                    gameBoard[x, y, 0] = 1;// 1==Mine, 0 == Normales Feld
+                    _gameBoard[x, y, 0] = -1;// -1==Mine, 0 == Normales Feld
                     placedBombs++;
 
                 }
+                
 
 
             }
@@ -63,25 +72,27 @@ namespace SWE03_Bosnia_Logic
 
         public bool Clicked(int x, int y)
         {
+            
             if (_clicked == false)// Wenn es der erste Click ist werden die Minen generiert 
             {
+                InitializeBoard();
                 AddMines(x, y);
                 _clicked = true;
             }
 
-            if (gameBoard[x, y, 0] == 1)
+            if (_gameBoard[x, y, 0] == -1)
             {
                 return false;// Ist eine Mine
             }
-            else if(gameBoard[x, y, 0] == 0)
+            else if(_gameBoard[x, y, 0] == 0)
             {
                
                 return true;// Ist keine Mine
             }
-            return true;// Standart case wird nicht eintreten
+            return false;// Standart case wird nicht eintreten
         }
 
-
+        
 
 
 
@@ -90,4 +101,6 @@ namespace SWE03_Bosnia_Logic
 
 
     }
+
+
 }
