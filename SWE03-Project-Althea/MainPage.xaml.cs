@@ -16,8 +16,8 @@ namespace SWE03_Project_Althea
             
         }
 
-       
 
+        // Sendet dich zur Gamepage
         private async void StartBtn_Clicked(object sender, EventArgs e)
         {
             await Navigation.PushAsync(new Gamepage());

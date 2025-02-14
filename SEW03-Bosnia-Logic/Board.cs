@@ -18,7 +18,7 @@ namespace SWE03_Bosnia_Logic
         private int _bombcount;
         public int Bombcount { get=> _bombcount;}
 
-        private bool _clicked= false;
+        private bool _clicked= false;// Variable die Speichert ob der erste Click gemacht wurde
 
         private int[,,] _gameBoard;
         public int[,,] GameBoard { get => _gameBoard;  }
@@ -52,11 +52,11 @@ namespace SWE03_Bosnia_Logic
 
             while (placedBombs < _bombcount)
             {
-
+                // Generiert Zufällige Koordinaten für die Minen
                 int x = randomGenerator.Next(0, _row);
                 int y = randomGenerator.Next(0, _collum);
 
-                if (_gameBoard[x, y, 0] == 0 && x != startx && y != starty)
+                if (_gameBoard[x, y, 0] == 0 && x != startx && y != starty) // Wenn das Feld noch keine Mine hat und nicht das Startfeld ist wird eine Mine platziert
                 {
 
                     _gameBoard[x, y, 0] = -1;// -1==Mine, 0 == Normales Feld
@@ -73,7 +73,7 @@ namespace SWE03_Bosnia_Logic
         public bool Clicked(int x, int y)
         {
             
-            if (_clicked == false)// Wenn es der erste Click ist werden die Minen generiert 
+            if (_clicked == false)// Wenn es der erste Click ist wird das Board Inizalisiert und die Minen generiert 
             {
                 InitializeBoard();
                 AddMines(x, y);

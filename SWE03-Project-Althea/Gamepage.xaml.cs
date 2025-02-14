@@ -11,64 +11,68 @@ public partial class Gamepage : ContentPage
     public Gamepage()
     {
         InitializeComponent();
-        
-        
-        
 
-        // Create a new Grid
+
+
+
+        // Erstellt einen Gird beim öffnen der Seite
         Grid buttonGrid = new Grid
         {
             HorizontalOptions = LayoutOptions.Fill,
             VerticalOptions = LayoutOptions.Fill,
-             RowSpacing = 0, // Remove spacing between rows
-            ColumnSpacing = 0 // Remove spacing between columns
+            RowSpacing = 0, // Entfernt spacing zwischen den Reihen
+            ColumnSpacing = 0 // Entfernt spacing zwischen den Spalten
         };
 
-        // Add 10 rows and 10 columns
+        // Fügt 10 Reihen und 10 Spalten hinzu
         for (int i = 0; i < 10; i++)
         {
             buttonGrid.RowDefinitions.Add(new RowDefinition { Height = new GridLength(1, GridUnitType.Star) });
             buttonGrid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(1, GridUnitType.Star) });
         }
 
-        // Add buttons to each cell
+        // Fügt Buttons zu jedem Feld hinzu
         for (int row = 0; row < 10; row++)
         {
             for (int col = 0; col < 10; col++)
             {
                 var button = new Button
                 {
-                    Text = $"", // Optional: Display row and column
+                    Text = $"", // 
                     BackgroundColor = Colors.Gray,
-                    CornerRadius = 5 ,// Optional: Remove rounded corners
-                    Padding = 0, // Remove internal padding
-                    Margin = 2 // Remove external margin
+                    CornerRadius = 5 ,
+                    Padding = 0, 
+                    Margin = 2 
                 };
 
-                // Add the button to the grid
+                // Fügt den Button zum Grid hinzu
                 buttonGrid.Children.Add(button);
                 Grid.SetRow(button, row);
                 Grid.SetColumn(button, col);
 
-                // Add a click event handler (optional)
+                // Fügt Eventhandler zum Button hinzu
                 button.Clicked += OnGridButtonClicked;
             }
         }
         this.Content = buttonGrid;
     }
+
+    // Eventhandler für die Buttons im Grid
     private async void OnGridButtonClicked(object sender, EventArgs e)
     {
         Microsoft.Maui.Controls.Button button = (Button)sender;
+        //Position des Buttons im Grid in x und y Achse
         int row = Grid.GetRow(button);
         int col = Grid.GetColumn(button);
+        
         aufgedeckt[row, col] = false;
 
-
-        if (b1.Clicked(row, col) == true)
+        if (b1.Clicked(row, col) == true) 
         {
             button.Text = "0";
             Aufdecken(row, col,b1.GameBoard,aufgedeckt, button);
         }
+        // Game over Funktion bringt die auf die Gameoverseite
         else
         {
             button.Text = "1";
