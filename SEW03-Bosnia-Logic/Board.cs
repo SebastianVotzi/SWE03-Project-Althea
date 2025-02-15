@@ -11,96 +11,184 @@ namespace SWE03_Bosnia_Logic
 {
     public class Board // Eine Klasse Für das Spielbrett  
     {
+
         private int _row;
         public int Row { get => _row; }
+
         private int _collum;
         public int Collum { get => _collum; }
+
         private int _bombcount;
         public int Bombcount { get=> _bombcount;}
 
-        private bool _clicked= false;// Variable die Speichert ob der erste Click gemacht wurde
+        private bool _clicked= false;// Variable die Speichert ob es der Click auf ein Feld ist
+        private bool _gameover = false;// Variable die Speichert ob das Spiel vorbei ist
+        public bool Gameover { get => _gameover;}
+        private Tile[,] _gameBoard = new Tile[10, 10]; // 2 Dimensionales Array für das Spielfeld
 
-        private int[,,] _gameBoard;
-        public int[,,] GameBoard { get => _gameBoard;  }
-        public Board(int row, int collum, int bombcount, int[,,] gameboard) 
+        public Tile[,] GameBoard { get => _gameBoard; }
+
+        private Random randomGenerator = new Random();
+        
+        public Board(int row, int collum, int bombcount) 
         { 
+
             this._row = row;
             this._collum = collum;
             this._bombcount = bombcount;
-            this._gameBoard = gameboard;
-
+            
         }
 
         public void InitializeBoard() // Generiert das Board am Anfang des Spieles
         {
-            for (int i = 0; i < _row; i++)
+
+            for (int x = 0; x < _row; x++)
             {
-                for (int j = 0; j < _collum; j++)
+
+                for (int y = 0; y < _collum; y++)
                 {
-                    _gameBoard[i, j, 0] = 0;
+
+                    _gameBoard[x, y] = new Tile();// Erstellt ein neues leeres Tile Object an jeder Stelle des Spielfeldes
+
                 }
+
             }
             
-
         }
 
-        public void AddMines(int startx, int starty)//Generiert die Minen 
+        public void AddMines()//Generiert die Minen 
         { 
 
             int placedBombs = 0;
-            Random randomGenerator = new Random();
-
+            
             while (placedBombs < _bombcount)
             {
                 // Generiert Zufällige Koordinaten für die Minen
                 int x = randomGenerator.Next(0, _row);
                 int y = randomGenerator.Next(0, _collum);
 
-                if (_gameBoard[x, y, 0] == 0 && x != startx && y != starty) // Wenn das Feld noch keine Mine hat und nicht das Startfeld ist wird eine Mine platziert
+                if (!_gameBoard[x, y].IsMine )// Schaut ob dass Feld noch keine Mine hat 
                 {
 
-                    _gameBoard[x, y, 0] = -1;// -1==Mine, 0 == Normales Feld
+                    _gameBoard[x, y].IsMine = true;
                     placedBombs++;
 
                 }
                 
+            }
 
+        }
 
+        private void CalculateAdjacentMines()// Berechnet die Anzahl der Minen die um ein Feld sind und speichert die Anzahl in AdjacentMines
+        {
+            for (int x = 0; x < 10; x++)
+            {
+                for (int y = 0; y < 10; y++)
+                {
+                    if (!_gameBoard[x, y].IsMine)
+                    {
+                        _gameBoard[x, y].AdjacentMines = CountMinesAround(x, y);
+                    }
+                }
             }
         }
 
+        private int CountMinesAround(int x, int y)// Zählt die Minen um ein Feld und gibt diese als Integer zurück
+        {
+            int count = 0;
+            for (int i = -1; i <= 1; i++)
+            {
+                for (int j = -1; j <= 1; j++)
+                {
+                    int newX = x + i;
+                    int newY = y + j;
+                    if (newX >= 0 && newX < 10 && newY >= 0 && newY < 10 && _gameBoard[newX, newY].IsMine)
+                    {
+                        count++;
+                    }
+                }
+            }
+            return count;
+        }
 
-        public bool Clicked(int x, int y)
+        public void RevealTile(int x, int y)
+        {
+
+            // Überprüft, ob die Koordinaten außerhalb des Spielfelds liegen
+            if (x < 0 || x >= 10 || y < 0 || y >= 10)
+            {
+
+                return; 
+
+            }
+
+            var tile = _gameBoard[x, y];
+
+            // Überprüft, ob das Feld bereits aufgedeckt ist
+            if (tile.IsRevealed)
+            {
+
+                return; 
+
+            }
+
+            // Überprüft, ob das Feld eine Mine ist
+            if (tile.IsMine)
+            {
+                
+                tile.IsRevealed = true;
+                _gameover = true;// Setzt das Spiel auf Gameover
+                return;
+
+            }
+
+            // Feld aufdecken
+            tile.IsRevealed = true;
+
+            // Wenn das Feld keine benachbarten Minen hat, deckt rekursiv alle benachbarten Felder auf
+            if (tile.AdjacentMines == 0)
+            {
+
+                for (int i = -1; i <= 1; i++)
+                {
+
+                    for (int j = -1; j <= 1; j++)
+                    {
+                        
+                        RevealTile(x + i, y + j);
+
+                    }
+
+                }
+
+            }
+
+        }
+
+
+        public void Clicked(int x, int y)
         {
             
-            if (_clicked == false)// Wenn es der erste Click ist wird das Board Inizalisiert und die Minen generiert 
+            if (_clicked == false)// Wenn es der erste Click ist wird das Spielfeld generiert und die Minen hinzugefügt
             {
+
                 InitializeBoard();
-                AddMines(x, y);
+                AddMines();
                 _clicked = true;
+
+            }
+           
+            if (!_gameBoard[x, y].IsMine)// Wenn das Feld keine Mine ist wird die Anzahl der benachbarten Minen berechnet
+            {
+
+                CalculateAdjacentMines();
+
             }
 
-            if (_gameBoard[x, y, 0] == -1)
-            {
-                return false;// Ist eine Mine
-            }
-            else if(_gameBoard[x, y, 0] == 0)
-            {
-               
-                return true;// Ist keine Mine
-            }
-            return false;// Standart case wird nicht eintreten
+            RevealTile(x, y);// Das Feld wird aufgedeckt
+
         }
 
-        
-
-
-
-
-
-
-
     }
-
 
 }

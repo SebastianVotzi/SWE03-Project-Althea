@@ -4,7 +4,7 @@
              x:Class="SWE03_Project_Althea.MainPage">
 
     <Grid>
-        <!-- Define a single row and column -->
+        <!-- Grid mit einer Row & Column -->
         <Grid.RowDefinitions>
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
@@ -12,11 +12,11 @@
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
 
-        <Image Source="xijinping.jpg"
+        <Image Source="bosnia.png"
        Grid.Row="0"
        Grid.Column="0" />
         
-        <!-- Place the button in the center -->
+        <!-- Start Button -->
         <Button Text="Start Game"
                 Clicked="StartBtn_Clicked"
                 HorizontalOptions="Center"

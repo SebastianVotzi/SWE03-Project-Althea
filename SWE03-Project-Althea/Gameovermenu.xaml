@@ -2,7 +2,7 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="SWE03_Project_Althea.Gameovermenu"
-             Title="Gameovermenu">
+             Title="Game Over">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="*" />
@@ -14,7 +14,7 @@
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
 
-        <Label Text="You Lost LLLLL" 
+        <Label Text="Game Over L" 
                Grid.ColumnSpan="2"
                HorizontalOptions="Center"
                VerticalOptions="Center"></Label>
