@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace SEW03_Bosnia_Logic
 {
     // Diese Klasse repräsentiert ein einzelnes Feld im Minesweeper-Spiel.
-    public class Tile
+    public class Tile : Object
     {
 
         public bool IsMine { get; set; } 

@@ -7,9 +7,9 @@ using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SWE03_Bosnia_Logic
+namespace SWE03_Bosnia_Logic 
 {
-    public class Board // Eine Klasse Für das Spielbrett  
+    public class Board : Object// Eine Klasse Für das Spielbrett  in dem auch der Status des Spiels gespeichert wird
     {
 
         private int _row;

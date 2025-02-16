@@ -10,20 +10,36 @@
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
 
         <Image Source="bosnia.png"
-       Grid.Row="0"
+       Grid.ColumnSpan="3"
        Grid.Column="0" />
         
         <!-- Start Button -->
-        <Button Text="Start Game"
-                Clicked="StartBtn_Clicked"
+        <Button Text="Start Game(Hard)"
+                Clicked="StartBtnH_Clicked"
                 HorizontalOptions="Center"
                 VerticalOptions="Center"
                 Grid.Row="0"
                 BackgroundColor="Gray"
                 Grid.Column="0" />
+        <Button Text="Start Game(Standart)"
+                Clicked="StartBtnM_Clicked"
+                HorizontalOptions="Center"
+                VerticalOptions="Center"
+                Grid.Row="0"
+                BackgroundColor="Gray"
+                Grid.Column="1" />
+        <Button Text="Start Game(Easy)"
+                Clicked="StartBtnE_Clicked"
+                HorizontalOptions="Center"
+                VerticalOptions="Center"
+                Grid.Row="0"
+                BackgroundColor="Gray"
+                Grid.Column="2" />
         
         
     </Grid>

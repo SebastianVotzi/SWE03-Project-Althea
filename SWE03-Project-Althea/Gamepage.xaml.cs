@@ -5,8 +5,8 @@ namespace SWE03_Project_Althea;
 
 public partial class Gamepage : ContentPage
 {
-
-    Board b1 = new Board(10, 10, 21);// Das tatsächliche Spielfeld
+    private Board b1;
+    
 
     Grid buttonGrid = new Grid
     {
@@ -18,8 +18,10 @@ public partial class Gamepage : ContentPage
 
     };
 
-    public Gamepage()
+    public Gamepage(Board b1)
     {
+        this.b1 = b1;
+
         InitializeComponent();
 
         // Fügt 10 Zeilen und 10 Spalten zum Grid hinzu
