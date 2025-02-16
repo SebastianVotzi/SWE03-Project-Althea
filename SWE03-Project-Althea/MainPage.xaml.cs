@@ -8,9 +8,9 @@ namespace SWE03_Project_Althea
 {
     public partial class MainPage : ContentPage
     {
-        Board b1 = new Board(10, 10, 21);// Das tatsächliche Spielfeld(Schwer)
-        Board b2 = new Board(10, 10, 16);// Das tatsächliche Spielfeld(Mittel
-        Board b3 = new Board(10, 10, 12);// Das tatsächliche Spielfeld(Einfach)
+        private Board b1 = new Board(10, 10, 21);// Das tatsächliche Spielfeld(Schwer)
+        private Board b2 = new Board(10, 10, 16);// Das tatsächliche Spielfeld(Mittel
+        private Board b3 = new Board(10, 10, 12);// Das tatsächliche Spielfeld(Einfach)
         public MainPage()
         {
             InitializeComponent();
