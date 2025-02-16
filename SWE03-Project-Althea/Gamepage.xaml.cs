@@ -24,6 +24,8 @@ public partial class Gamepage : ContentPage
 
         InitializeComponent();
 
+        
+
         // Fügt 10 Zeilen und 10 Spalten zum Grid hinzu
         for (int i = 0; i < 10; i++)
         {
@@ -67,6 +69,7 @@ public partial class Gamepage : ContentPage
 
         b1.Clicked(row, col);
         UpdateUI();
+        Wincon();
         if (b1.Gameover)//Gameovermenu wird aufgerufen
         {
             
@@ -120,5 +123,25 @@ public partial class Gamepage : ContentPage
         }
     }
 
+    public async void Wincon()// Funktion welcher dich auf Die Winpage bringt wenn alle Tiles offen sind 
+    {
+        int count = 0;
+        foreach( var member in b1.GameBoard)
+        {
+
+            if (member.IsMine|| member.IsRevealed) 
+            {
+
+                count++;
+                
+            }
+
+        }
+        if (count == 100) 
+        {
+            await Navigation.PushAsync(new Winmenu());
+            Navigation.RemovePage(this);
+        }
+    }
 
 }

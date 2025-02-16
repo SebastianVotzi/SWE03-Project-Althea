@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="SWE03_Project_Althea.Gameovermenu"
-             Title="Game Over">
+             x:Class="SWE03_Project_Althea.Winmenu"
+             Title="You won">
     
     <Grid>
         <Grid.RowDefinitions>
@@ -16,12 +16,12 @@
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
 
-        <Label Text="Game Over L" 
+        <Label Text="Game Won W" 
                Grid.ColumnSpan="2"
                HorizontalOptions="Center"
                VerticalOptions="Center"></Label>
 
-        <Image Source="gameover.jpg">
+        <Image Source="win.jpg">
             
         </Image>
         

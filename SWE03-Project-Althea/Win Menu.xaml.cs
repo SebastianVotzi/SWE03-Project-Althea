@@ -2,10 +2,16 @@
 
 namespace SWE03_Project_Althea;
 
-public partial class Gameovermenu : ContentPage
+public partial class Winmenu : ContentPage
 {
 
-    public Gameovermenu()
+    // oder: XAML:
+    // xmlns:local="clr-namespace:<Project Name>"
+    // <ContentPage.BindingContext>
+    // <local:MainWindowViewModel/>
+    // </ContentPage.BindingContext>
+
+    public Winmenu()
     {
 
         InitializeComponent();
